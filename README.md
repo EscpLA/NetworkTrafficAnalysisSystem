@@ -20,6 +20,8 @@
   </a>
 </p>
 
+> 本分支是基于**比较老的** `vue-cli 2.x` 以及 `vue 2.x` 来进行开发的；你也可以切换到其它新版本的分支
+
 ## 预览
 在线体验：[https://git.io/fp9UM](https://neveryu.github.io/vue-cms/index.html)
 
