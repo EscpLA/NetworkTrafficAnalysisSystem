@@ -3,14 +3,14 @@ export default {
     name: 'yu'
   },
   login: {
-    title: 'Content Manage System',
+    title: 'Network Traffic Classification System',
     account: 'Account',
     password: 'Pwd',
     remember: 'Remember',
     login: 'Login'
   },
   navbar: {
-    title: 'vue-cms',
+    title: 'Network Traffic Classification System',
     screenfull: 'screenfull',
     profile: 'Profile',
     avatar: 'Avatar',

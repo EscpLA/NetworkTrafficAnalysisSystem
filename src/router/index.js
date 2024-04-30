@@ -46,8 +46,8 @@ export const constantRouterMap = [
       {
         path: 'home',
         name: 'home',
-        component: () => import('@/views/homepage'),
-        meta: {icon: 's-home', title: '首页'}
+        component: () => import('@/views/introduction'),
+        meta: { icon: 's-home', title: '首页' }
       }
     ]
   },
@@ -64,154 +64,217 @@ export const constantRouterMap = [
         path: 'profile',
         name: 'Profile',
         component: () => import('@/views/user/profile'),
-        meta: {icon: 'warning', title: '个人中心'}
+        meta: { icon: 'warning', title: '个人中心' }
       }
     ]
   },
-  {
-    path: '/introduction',
-    component: Layout,
-    redirect: '/introduction/index',
-    // alwaysShow: true,
-    meta: {
-      icon: 'svg-aperture',
-      title: '简述'
-    },
-    children: [
-      {
-        path: 'index',
-        name: 'Introduction',
-        component: () => import('@/views/introduction/index'),
-        meta: {icon: 'svg-aperture', title: '简述'}
-      }
-    ]
-  },
-  {
-    path: '/nested',
-    component: Layout,
-    meta: {
-      icon: 'svg-layers',
-      title: '路由嵌套'
-    },
-    children: [
-      {
-        path: 'menu1',
-        meta: { icon: 'share', title: '嵌套路由1' },
-        component: () => import('@/views/nested/menu1/index'),
-        children: [
-          {
-            path: 'menu1-1',
-            name: 'menu1-1',
-            component: () => import('@/views/introduction/index'),
-            meta: {icon: 'success', title: '嵌套路由1-1'}
-          },
-          {
-            path: 'menu1-2',
-            name: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2/index'),
-            alwaysShow: true,
-            meta: {icon: 'error', title: '嵌套路由1-2'},
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/introduction/index'),
-                name: 'menu1-2-1',
-                meta: {icon: 'warning', title: '嵌套路由1-2-1'}
-              }
-            ]
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        name: 'menu2',
-        component: () => import('@/views/user/add'),
-        meta: {icon: 'star-on', title: '嵌套路由2'}
-      }
-    ]
-  },
-  {
-    path: '/custom-component',
-    component: Layout,
-    meta: {
-      icon: 'question',
-      title: '自定义组件'
-    },
-    redirect: '/custom-component/index',
-    children: [
-      {
-        path: 'index',
-        name: 'CustomComponent',
-        component: () => import('@/views/custom-component/index'),
-        meta: {icon: 'guide', title: '自定义组件'}
-      }
-    ]
-  },
+  // {
+  //   path: '/introduction',
+  //   component: Layout,
+  //   redirect: '/introduction/index',
+  //   // alwaysShow: true,
+  //   meta: {
+  //     icon: 'svg-aperture',
+  //     title: '简介'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Introduction',
+  //       component: () => import('@/views/introduction/index'),
+  //       meta: { icon: 'svg-aperture', title: '简介' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   meta: {
+  //     icon: 'svg-layers',
+  //     title: '路由嵌套'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       meta: { icon: 'share', title: '嵌套路由1' },
+  //       component: () => import('@/views/nested/menu1/index'),
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           name: 'menu1-1',
+  //           component: () => import('@/views/introduction/index'),
+  //           meta: { icon: 'success', title: '嵌套路由1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           name: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2/index'),
+  //           alwaysShow: true,
+  //           meta: { icon: 'error', title: '嵌套路由1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/introduction/index'),
+  //               name: 'menu1-2-1',
+  //               meta: { icon: 'warning', title: '嵌套路由1-2-1' }
+  //             }
+  //           ]
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       name: 'menu2',
+  //       component: () => import('@/views/user/add'),
+  //       meta: { icon: 'star-on', title: '嵌套路由2' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/custom-component',
+  //   component: Layout,
+  //   meta: {
+  //     icon: 'question',
+  //     title: '自定义组件'
+  //   },
+  //   redirect: '/custom-component/index',
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'CustomComponent',
+  //       component: () => import('@/views/custom-component/index'),
+  //       meta: { icon: 'guide', title: '自定义组件' }
+  //     }
+  //   ]
+  // },
   {
     path: '/echarts',
     component: Layout,
     redirect: 'index',
     alwaysShow: true,
     meta: {
-      title: '可视化',
-      icon: 'svg-droplet'
+      title: '历史流量展示',
+      icon: 'date'
     },
     children: [
       {
         path: 'index',
-        name: '数量统计',
-        component: () => import('@/views/echarts'),
-        meta: {title: '数量统计', icon: 'svg-heart'}
+        name: '历史流量可视化分析',
+        component: () => import('@/views/echarts/index'),
+        meta: { title: '历史流量可视化分析', icon: 'data-analysis' }
+      },
+      {
+        path: "trafficStatistic",
+        name: "数据流量统计信息",
+        component: () => import('@/views/echarts/trafficStatistic'),
+        meta: { title: '数据流量统计信息', icon: 'document' }
       }
     ]
   },
+
   {
-    path: '/rich-editor',
+    path: '/real-time',
+    // hidden: true,
     component: Layout,
-    alwaysShow: true,
-    meta: {
-      icon: 's-order',
-      title: '富文本'
-    },
-    redirect: 'quill',
+    redirect: '/real-time',
     children: [
       {
-        path: 'quill',
-        name: 'QuillEditor',
-        component: () => import('@/views/rich-editor/quill'),
-        meta: {icon: 's-order', title: 'quill'}
-      },
-      {
-        path: 'tinymce',
-        name: 'TinyMCE',
-        component: () => import('@/views/rich-editor/tinymce'),
-        meta: {icon: 'svg-type', title: 'tinymce'}
+        path: 'real-time',
+        name: 'real-time',
+        component: () => import('@/views/real-time-traffic'),
+        meta: { icon: 'time', title: '实时流量监测' }
       }
     ]
   },
-  {
-    path: '/futures',
-    component: Layout,
-    alwaysShow: true,
-    meta: {
-      icon: 's-grid',
-      title: '更多功能'
-    },
-    children: [
-      {
-        path: 'draggable',
-        name: 'draggable',
-        component: () => import('@/views/futures/draggable'),
-        meta: {icon: 'thumb', title: '拖拽'}
-      },
-      {
-        path: '/clipboard',
-        name: 'clipBoard',
-        component: () => import('@/views/clipboard'),
-        meta: {title: '剪切板示例', icon: 'document'}
-      }
-    ]
-  }
+  // {
+  //   path: '/rich-editor',
+  //   component: Layout,
+  //   alwaysShow: true,
+  //   meta: {
+  //     icon: 's-order',
+  //     title: '富文本'
+  //   },
+  //   redirect: 'quill',
+  //   children: [
+  //     {
+  //       path: 'quill',
+  //       name: 'QuillEditor',
+  //       component: () => import('@/views/rich-editor/quill'),
+  //       meta: { icon: 's-order', title: 'quill' }
+  //     },
+  //     {
+  //       path: 'tinymce',
+  //       name: 'TinyMCE',
+  //       component: () => import('@/views/rich-editor/tinymce'),
+  //       meta: { icon: 'svg-type', title: 'tinymce' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/futures',
+  //   component: Layout,
+  //   alwaysShow: true,
+  //   meta: {
+  //     icon: 's-grid',
+  //     title: '更多功能'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'draggable',
+  //       name: 'draggable',
+  //       component: () => import('@/views/futures/draggable'),
+  //       meta: { icon: 'thumb', title: '拖拽' }
+  //     },
+  //     {
+  //       path: '/clipboard',
+  //       name: 'clipBoard',
+  //       component: () => import('@/views/clipboard'),
+  //       meta: { title: '剪切板示例', icon: 'document' }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: '/excel',
+  //   component: Layout,
+  //   redirect: '/excel/export-excel',
+  //   alwaysShow: true,
+  //   meta: {
+  //     title: '表格',
+  //     icon: 'date'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'dynamic-table',
+  //       component: () => import('@/views/excel/dynamic-table/index'),
+  //       name: 'DynamicTable',
+  //       meta: { icon: 'set-up', title: '动态表格' }
+  //     },
+  //     {
+  //       path: 'export-excel',
+  //       name: '导出表格',
+  //       component: () => import('@/views/excel/export-excel'),
+  //       meta: { icon: 'download', title: '导出表格' }
+  //     },
+  //     {
+  //       path: 'upload-excel',
+  //       name: '上传表格',
+  //       component: () => import('@/views/excel/upload-excel'),
+  //       meta: { icon: 'upload', title: '上传表格' }
+  //     },
+  //     {
+  //       path: 'merge-count',
+  //       name: '合并&统计',
+  //       component: () => import('@/views/excel/merge-count'),
+  //       meta: { icon: 'upload', title: '合并&统计' }
+  //     },
+  //     {
+  //       path: 'custom-design',
+  //       name: '自定义表格',
+  //       component: () => import('@/views/excel/custom-excel'),
+  //       meta: { icon: 's-promotion', title: '自定义表格' }
+  //     }
+  //   ]
+  // }
 ]
 
 export default new Router({
@@ -225,48 +288,7 @@ export default new Router({
  * @type {Array}
  */
 export const asyncRouterMap = [
-  {
-    path: '/excel',
-    component: Layout,
-    redirect: '/excel/export-excel',
-    alwaysShow: true,
-    meta: {
-      title: '表格',
-      icon: 'date'
-    },
-    children: [
-      {
-        path: 'dynamic-table',
-        component: () => import('@/views/excel/dynamic-table/index'),
-        name: 'DynamicTable',
-        meta: { icon: 'set-up', title: '动态表格' }
-      },
-      {
-        path: 'export-excel',
-        name: '导出表格',
-        component: () => import('@/views/excel/export-excel'),
-        meta: {icon: 'download', title: '导出表格'}
-      },
-      {
-        path: 'upload-excel',
-        name: '上传表格',
-        component: () => import('@/views/excel/upload-excel'),
-        meta: {icon: 'upload', title: '上传表格'}
-      },
-      {
-        path: 'merge-count',
-        name: '合并&统计',
-        component: () => import('@/views/excel/merge-count'),
-        meta: {icon: 'upload', title: '合并&统计'}
-      },
-      {
-        path: 'custom-design',
-        name: '自定义表格',
-        component: () => import('@/views/excel/custom-excel'),
-        meta: {icon: 's-promotion', title: '自定义表格'}
-      }
-    ]
-  },
+
   {
     path: '/theme',
     component: Layout,

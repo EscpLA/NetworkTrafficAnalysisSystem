@@ -3,54 +3,59 @@
     <ul class="data-wrapper">
       <li class="item">
         <span class="index" style="visibility: hidden"></span>
-        <span class="name">地区</span>
+        <span class="name">类别</span>
         <span class="value">总数</span>
-        <span class="done-value">完成数</span>
-        <span class="rate">完成率</span>
+        <!-- <span class="done-value">完成数</span> -->
+        <span class="rate">占比率</span>
       </li>
-      <li class="item" v-for="(item, index) of tableData" :key="item.id" @click="_select(item)">
-        <span class="index" :class="classObject(index)">{{index + 1}}</span>
-        <span class="name">{{item.deptName}}</span>
-        <span class="value">{{item.all}}件</span>
-        <span class="done-value">{{item.done}}件</span>
-        <span class="rate">{{(item.done*100/item.all).toFixed(2)}}%</span>
+      <li
+        class="item"
+        v-for="(item, index) of tableData"
+        :key="item.id"
+        @click="_select(item)"
+      >
+        <span class="index" :class="classObject(index)">{{ index + 1 }}</span>
+        <span class="name">{{ item.deptName }}</span>
+        <span class="value">{{ item.all }}个</span>
+        <span class="rate">{{ ((item.all * 100) / top10Sum).toFixed(2) }}%</span>
       </li>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  name: 'part-brand',
+  name: "part-brand",
   props: {
     tableData: {
       type: Array,
       required: true,
       default: () => {
-        return []
-      }
-    }
+        return [];
+      },
+    },
+    top10Sum: 0,
   },
   data() {
     return {
-      partTop: this.tableData
-    }
+      partTop: this.tableData,
+    };
   },
   methods: {
     // 调到list列表
     _select(item) {
-      let _deptId = item.deptId
-      this.$emit('goList', _deptId)
+      let _deptId = item.deptId;
+      this.$emit("goList", _deptId);
     },
     classObject(index) {
       return {
         first: index === 0,
         second: index === 1,
-        thrid: index === 2
-      }
-    }
+        thrid: index === 2,
+      };
+    },
   },
-  mounted() {}
-}
+  mounted() {},
+};
 </script>
 <style scoped lang="stylus">
 .part-brand-wrapper
@@ -73,6 +78,7 @@ export default {
       height 28px
       line-height 28px
       min-width 360px
+   
       &:hover
         background-color rgba(18,245,255,0.1)
       .index

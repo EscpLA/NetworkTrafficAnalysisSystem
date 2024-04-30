@@ -86,7 +86,7 @@ export default {
             axisLabel: {
               color: '#fff',
               fontSize: 16,
-              formatter: '{value}%'
+              formatter: '{value}个'
             },
             axisLine: {
               show: false
@@ -94,19 +94,7 @@ export default {
           }
         ],
         series: [
-          {
-            show: true,
-            type: 'bar',
-            barGap: '-100%',
-            barWidth: '40%', // 统计条宽度
-            itemStyle: {
-              normal: {
-                color: 'rgba(102, 102, 102,0.5)'
-              }
-            },
-            z: 1,
-            data: this.grayBar
-          },
+         
           {
             type: 'bar',
             data: this.xData,
@@ -121,7 +109,7 @@ export default {
                 fontStyle: {
                   fontSize: 16
                 },
-                formatter: '{c}%'
+                formatter: '{c}'
               }
             },
             itemStyle: {

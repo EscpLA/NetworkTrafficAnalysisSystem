@@ -34,6 +34,7 @@ Mock.mock('/excel/delFiles', 'post', excel.delFiles)
 // echarts菜单
 Mock.mock('/echarts/getCateData', 'get', echarts.getCateData)
 Mock.mock('/echarts/getDepartTop', 'post', echarts.getDepartTop)
+Mock.mock('/echarts/getProtocolData', 'get', echarts.getProtocolData)
 
 // 拖拽
 Mock.mock('/draggable/getFiles', 'post', draggable.getFileList)

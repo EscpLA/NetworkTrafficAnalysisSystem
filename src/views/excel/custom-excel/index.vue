@@ -2,36 +2,72 @@
   <div class="container">
     <!-- 功能，工具栏 -->
     <div class="btns-group">
-      <el-button type="primary" plain size="mini" icon="el-icon-download" @click="handlerDown">下载</el-button>
-      <el-button type="primary" plain size="mini" icon="el-icon-delete" @click="handlerDel">删除</el-button>
+      <el-button
+        type="primary"
+        plain
+        size="mini"
+        icon="el-icon-download"
+        @click="handlerDown"
+        >下载</el-button
+      >
+      <el-button
+        type="primary"
+        plain
+        size="mini"
+        icon="el-icon-delete"
+        @click="handlerDel"
+        >删除</el-button
+      >
 
-      <el-button-group style="float: right;">
-        <el-button class="model-change" plain size="mini" :class="{ active: showModel === 'list' }" icon="el-icon-tickets" @click="changeModel('list')">列表</el-button>
-        <el-button class="model-change" plain size="mini" :class="{ active: showModel === 'expand' }" icon="el-icon-menu" @click="changeModel('expand')">精简</el-button>
+      <el-button-group style="float: right">
+        <el-button
+          class="model-change"
+          plain
+          size="mini"
+          :class="{ active: showModel === 'list' }"
+          icon="el-icon-tickets"
+          @click="changeModel('list')"
+          >列表</el-button
+        >
+        <el-button
+          class="model-change"
+          plain
+          size="mini"
+          :class="{ active: showModel === 'expand' }"
+          icon="el-icon-menu"
+          @click="changeModel('expand')"
+          >精简</el-button
+        >
       </el-button-group>
     </div>
 
     <!-- 列表模式 -->
-    <list-model v-if="showModel === 'list'"
+    <list-model
+      v-if="showModel === 'list'"
       :tableDatas="fileList"
       :selectionArr="checkList"
       @downloadOne="downloadFunc"
-      @delOne="delFunc">
+      @delOne="delFunc"
+    >
     </list-model>
 
     <!-- 精简模式 -->
-    <expand-model v-if="showModel === 'expand'"
+    <expand-model
+      v-if="showModel === 'expand'"
       :tableDatas="fileList"
       :selectionArr="checkList"
-      @delOne="delFunc">
+      @delOne="delFunc"
+    >
     </expand-model>
 
     <!-- 删除素材时的弹窗 -->
-    <el-dialog title="删除"
+    <el-dialog
+      title="删除"
       class="del-dialog"
       :visible.sync="showDelDialog"
       :close-on-click-modal="false"
-      :close-on-press-escape="false">
+      :close-on-press-escape="false"
+    >
       <p class="del-tips">确认删除选中的素材？</p>
       <div slot="footer" class="">
         <el-button type="primary" @click="submitDel">确 定</el-button>
@@ -42,89 +78,92 @@
 </template>
 
 <script>
-import { confirm } from '@/decorator/confirm'
-import { getFiles, delFiles } from '@/api/excel'
-import ListModel from './children/list-model'
-import ExpandModel from './children/expand-model'
+import { confirm } from "@/decorator/confirm";
+import { getFiles, delFiles } from "@/api/excel";
+import ListModel from "./children/list-model";
+import ExpandModel from "./children/expand-model";
 export default {
   components: {
     ListModel,
-    ExpandModel
+    ExpandModel,
   },
   data() {
     return {
       // 展示模式
-      showModel: 'list',
+      showModel: "list",
       fileList: [],
       // 当前勾选中的
       checkList: [],
       // 删除弹窗是否显示
-      showDelDialog: false
-    }
+      showDelDialog: false,
+    };
   },
   methods: {
     changeModel(model) {
-      this.showModel = model
+      this.showModel = model;
     },
     handlerDown() {
-      if(this.checkList.length < 1) {
-        this.$message.warning('请勾选你要下载的内容')
+      if (this.checkList.length < 1) {
+        this.$message.warning("请勾选你要下载的内容");
       }
     },
     /* 顶部删除按钮 */
     handlerDel() {
-      if(this.checkList.length <= 0) {
-        this.$message.closeAll()
-        this.$message.info('请选择你要删除的素材')
-        return
+      if (this.checkList.length <= 0) {
+        this.$message.closeAll();
+        this.$message.info("请选择你要删除的素材");
+        return;
       }
-      this.showDelDialog = true
+      this.showDelDialog = true;
     },
     // 确定删除
     submitDel() {
-      let _ids = []
-      if(this.checkList.length > 0) {
-        this.checkList.forEach(item => {
-          _ids.push(item.id)
-        })
+      let _ids = [];
+      if (this.checkList.length > 0) {
+        this.checkList.forEach((item) => {
+          _ids.push(item.id);
+        });
       }
-      delFiles(_ids).then(res => {
-        this.$message.success('删除成功')
-        this.getDataList()
-      }).catch(err => {
-        console.log('删除', err)
-      })
+      delFiles(_ids)
+        .then((res) => {
+          this.$message.success("删除成功");
+          this.getDataList();
+        })
+        .catch((err) => {
+          console.log("删除", err);
+        });
     },
     // 取消删除
     cancelDel() {
-      this.showDelDialog = false
+      this.showDelDialog = false;
     },
     // 下载功能
     downloadFunc(id) {
-      console.log(`你要下载的文件id是：${id}`)
+      console.log(`你要下载的文件id是：${id}`);
     },
-    @confirm('此操作将永久删除该文件, 是否继续?')
+    @confirm("此操作将永久删除该文件, 是否继续?")
     delFunc(id) {
-      let index
-      for(let i = 0; i < this.fileList.length; i++) {
-        if(this.fileList[i].id === id) {
-          index = i
-          break
+      let index;
+      for (let i = 0; i < this.fileList.length; i++) {
+        if (this.fileList[i].id === id) {
+          index = i;
+          break;
         }
       }
-      this.fileList.splice(index, 1)
+      this.fileList.splice(index, 1);
       this.$message({
-        type: 'success',
-        message: '删除成功!'
-      })
-      this.checkList = []
-    }
+        type: "success",
+        message: "删除成功!",
+      });
+      this.checkList = [];
+    },
   },
   created() {
-    getFiles().then(res => {
-      this.fileList = res.data
-    })
-  }
+    getFiles().then((res) => {
+      this.fileList = res.data;
+      console.log("this.fileList", this.fileList)
+    });
+  },
 }
 </script>
 

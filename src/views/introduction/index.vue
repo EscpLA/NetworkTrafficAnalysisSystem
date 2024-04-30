@@ -1,6 +1,6 @@
 <template>
   <div class="introduction">
-    {{$t('author.name')}}：
+    <!-- {{$t('author.name')}}：
     <ul>
       <li>{{$t('introduction.item1')}}</li>
       <li>{{$t('introduction.item2')}}</li>
@@ -12,9 +12,9 @@
         </ul>
       <li>{{$t('introduction.item5')}}</li>
       <li>{{$t('introduction.item6')}}</li>
-    </ul>
+    </ul> -->
 
-    <div class="mid-center">
+    <!-- <div class="mid-center">
       <div class="stack-wrapper">
         <stack ref="stack" :pages="someList" :stackinit="stackinit"></stack>
       </div>
@@ -22,16 +22,22 @@
         <button @click="prev" class="button"><i class="prev"></i><span class="text-hidden">prev</span></button>
         <button @click="next" class="button"><i class="next"></i><span class="text-hidden">next</span></button>
       </div>
+    </div> -->
+    <div class="container">
+      <h1>简介</h1>
+      <span class="text">
+        本章设计了基于深度学习的网络流量分析系统，该系统根据在第3章中分别对比研究了基于CWW-SE-Wet的网络流量分析模型和基于Transformer的网络流量分析模型，设计了利用两种模型的网络流量分析系统结构，实现了对于网络数据流量的可视化分析，可以帮助网络运营人员更加直观的掌握网络流量数据情况。
+      </span>
     </div>
   </div>
 </template>
 <script>
-import { getImage } from '@/api/introduction'
-import Stack from '@/components/tantan/stack'
+import { getImage } from "@/api/introduction";
+import Stack from "@/components/tantan/stack";
 export default {
-  name: 'introduction',
+  name: "introduction",
   components: {
-    Stack
+    Stack,
   },
   data() {
     return {
@@ -39,39 +45,51 @@ export default {
       imgUrl: [],
       someList: [],
       stackinit: {
-        visible: 3
-      }
-    }
+        visible: 3,
+      },
+    };
   },
   methods: {
-    prev () {
-      this.$refs.stack.$emit('prev')
+    prev() {
+      this.$refs.stack.$emit("prev");
     },
-    next () {
-      this.$refs.stack.$emit('next')
-    }
+    next() {
+      this.$refs.stack.$emit("next");
+    },
   },
   created() {
-    this.isDev = process.env.NODE_ENV === 'development'
-    getImage().then(resp => {
-      let movieData
-      movieData = [...resp[0].subjects, ...resp[1].subjects]
+    this.isDev = process.env.NODE_ENV === "development";
+    getImage().then((resp) => {
+      let movieData;
+      movieData = [...resp[0].subjects, ...resp[1].subjects];
       movieData.forEach((v, i, _this) => {
         // v.images.large
         this.imgUrl.push({
-          html: `<img src='${v.images.large}'>`
-        })
-      })
-    })
+          html: `<img src='${v.images.large}'>`,
+        });
+      });
+    });
   },
   mounted() {
     this.$nextTick(() => {
-      this.someList = this.imgUrl
-    })
-  }
-}
+      this.someList = this.imgUrl;
+    });
+  },
+};
 </script>
 <style scoped lang="stylus">
+.container {
+  width: 80%
+  margin: 0 auto
+  margin-top 60px
+  h1 {
+    font-size 50px
+  }
+  .text {
+    font-size 30px
+  }
+}
+
 .introduction {
   padding-bottom: 300px
   overflow: hidden

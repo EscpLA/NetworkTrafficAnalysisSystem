@@ -16,4 +16,11 @@ function getDepartTop() {
   })
 }
 
-export { getData, getDepartTop }
+function getProtocolData() {
+  return axios({
+    method: 'get',
+    url: '/echarts/getProtocolData'
+  })
+}
+
+export { getData, getDepartTop, getProtocolData }

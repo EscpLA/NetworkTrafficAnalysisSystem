@@ -1,13 +1,10 @@
 <template>
   <div class="top-navbar">
-    <el-menu
-      mode="horizontal" 
-      text-color="#fff"
-      active-text-color="#fff">
-      <router-link to="/home" style="display: table;">
-        <el-menu-item index="1" class="title-name">{{$t('navbar.title')}}</el-menu-item>
+    <el-menu mode="horizontal" text-color="#fff" active-text-color="#fff">
+      <router-link to="/home" style="display: table">
+        <el-menu-item index="1" class="title-name">{{ $t("navbar.title") }}</el-menu-item>
       </router-link>
-      
+
       <change-theme class="theme-container"></change-theme>
 
       <el-tooltip effect="dark" :content="$t('navbar.screenfull')" placement="bottom">
@@ -19,7 +16,8 @@
       </div>
 
       <div class="avatar-container">
-        <el-dropdown trigger="click">
+        <el-menu-item index="1" class="title-name">欢迎您！</el-menu-item>
+        <!-- <el-dropdown trigger="click">
           <div class="avatar-wrapper">
             <img class="user-avatar" :src="avatar">
             <div class="username-wrapper">
@@ -42,50 +40,50 @@
               <span style="display:block;">{{$t('navbar.logOut')}}</span>
             </el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
-      </div>  
+        </el-dropdown> -->
+      </div>
     </el-menu>
   </div>
 </template>
 <script>
-import { confirm } from '@/decorator/confirm'
-import { mapGetters, mapActions } from 'vuex'
-import LangSelect from '@/components/lang-select'
-import Screenfull from '@/components/screenfull'
-import ChangeTheme from '@/components/theme'
+import { confirm } from "@/decorator/confirm";
+import { mapGetters, mapActions } from "vuex";
+import LangSelect from "@/components/lang-select";
+import Screenfull from "@/components/screenfull";
+import ChangeTheme from "@/components/theme";
 export default {
-  name: '',
+  name: "",
   components: {
     LangSelect,
     Screenfull,
-    ChangeTheme
+    ChangeTheme,
   },
   computed: {
-    ...mapGetters([
-      'name',
-      'avatar'
-    ])
+    ...mapGetters(["name", "avatar"]),
   },
   methods: {
     ...mapActions({
-      userLogout: 'logout'
+      userLogout: "logout",
     }),
-    @confirm('退出系统？')
+    @confirm("退出系统？")
     logout() {
       const loading = this.$loading({
-        lock: true
-      })
-      this.userLogout().then(() => {
-        // 为了重新实例化vue-router对象 避免bug
-        location.reload()
-      }).catch(err => {
-        console.log(err)
-      }).finally(() => {
-        loading.close()
-      })
-    }
-  }
-}
+        lock: true,
+      });
+      this.userLogout()
+        .then(() => {
+          // 为了重新实例化vue-router对象 避免bug
+          location.reload();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          loading.close();
+        });
+    },
+  },
+};
 </script>
 <style lang="stylus" scoped>
 .top-navbar
@@ -103,12 +101,12 @@ export default {
       top 18px
       right 150px
     .lang-select /deep/ .el-dropdown
-      font-size 20px  
+      font-size 20px
       color #fff
     .avatar-container
       position absolute
-      top 15px
-      right 40px
+      top 0px
+      right 30px
       .avatar-wrapper
         cursor pointer
     .avatar-container /deep/ .user-avatar
@@ -145,5 +143,4 @@ export default {
   top: 20px
   right: 190px
 }
-
 </style>
